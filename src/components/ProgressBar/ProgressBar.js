@@ -17,7 +17,9 @@ const ProgressBar = ({ value, size }) => {
 
   return (
     <Wrapper size={size} role="progressbar" aria-valuenow={value}>
-      <Value style={stylesBase[size]} value={value} />
+      <Trimmer>
+        <Value style={stylesBase[size]} value={value} />
+      </Trimmer>
       <VisuallyHidden>{label}</VisuallyHidden>
     </Wrapper>
   )
@@ -29,18 +31,19 @@ const Wrapper = styled.div`
   height: var(--height);
   padding: ${p => p.size === 'large' ? 4 : 0}px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: ${p => p.size === 'large' ? 8 : 4}px;
   background: ${COLORS.transparentGray15};
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   /* offset-x | offset-y | blur-radius | color */
 `
+const Trimmer = styled.div`
+  border-radius: 4px;
+  overflow: hidden;
+`;
 
 const Value = styled.div`
   background-color: ${COLORS.primary};
   height: var(--height);
   width: ${p => p.value}%;
-  border-radius: 4px 0px 0px 4px; 
-  border-top-right-radius: ${p => p.value > 99 && 4}px;
-  border-bottom-right-radius: ${p => p.value > 99 && 4}px;
   transition: all .5s ease-in-out;
 `
