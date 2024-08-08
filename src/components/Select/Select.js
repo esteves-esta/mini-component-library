@@ -10,12 +10,12 @@ const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
   return (<Wrapper>
-    <VisuallyHidden>{label}</VisuallyHidden>
-    {displayedValue}
     <SelectElem value={value} onChange={onChange}>
       {children}
     </SelectElem>
-    <Arrow id="chevron-down" size={12} strokeWidth={2} />
+    <VisuallyHidden>{label}</VisuallyHidden>
+    {displayedValue}
+    <Arrow id="chevron-down" size={16} strokeWidth={2} />
   </Wrapper>
   );
 };
@@ -34,17 +34,19 @@ const SelectElem = styled.select`
 const Wrapper = styled.label`
   position: relative;
   font-family: Roboto, 'sans-serif';
+  font-size: 16 / 16 rem;
+  font-weight: 400;
   display: flex;
   align-items: center;
   width: fit-content;
   background: ${COLORS.transparentGray15} ;
-  padding: 12px 16px;
+  padding: 12px 10px 12px 16px;
   border-radius: 8px;
   gap: 24px;
   color: ${COLORS.gray700};
 
   &:focus-within {
-    outline: ;
+    outline: 2px auto -webkit-focus-ring-color;
   }
 
   &:hover{
