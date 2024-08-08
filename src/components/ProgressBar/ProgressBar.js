@@ -5,22 +5,37 @@ import styled from 'styled-components';
 import { COLORS } from '../../constants';
 import VisuallyHidden from '../VisuallyHidden';
 
+const stylesBase = {
+  small: {
+    "--height": `8px`,
+    "--padding": `0px`,
+    "--radius": `4px`,
+  },
+  medium: {
+    "--height": `12px`,
+    "--padding": `0px`,
+    "--radius": `4px`,
+  },
+  large: {
+    "--height": `16px`,
+    "--padding": `4px`,
+    "--radius": `8px`,
+  },
+};
+
+
 const ProgressBar = ({ value, size }) => {
+  const styles = stylesBase[size]
 
-  const stylesBase = {
-    small: { "--height": `8px` },
-    medium: { "--height": `12px` },
-    large: { "--height": `16px` },
-  };
-
-  let label = value === 100 ? 'Completed' : `${value}%`;
+  if (!styles)
+    throw new Error('wrong size !')
 
   return (
-    <Wrapper size={size} role="progressbar" aria-valuenow={value}>
+    <Wrapper role="progressbar" aria-valuenow={value} style={styles}>
       <Trimmer>
-        <Value style={stylesBase[size]} value={value} />
+        <Value style={styles} value={value} />
       </Trimmer>
-      <VisuallyHidden>{label}</VisuallyHidden>
+      <VisuallyHidden>{value}%</VisuallyHidden>
     </Wrapper>
   )
 };
@@ -28,10 +43,8 @@ const ProgressBar = ({ value, size }) => {
 export default ProgressBar;
 
 const Wrapper = styled.div`
-  height: var(--height);
-  padding: ${p => p.size === 'large' ? 4 : 0}px;
-  width: 100%;
-  border-radius: ${p => p.size === 'large' ? 8 : 4}px;
+  padding: var(--padding);
+  border-radius: var(--radius);
   background: ${COLORS.transparentGray15};
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   /* offset-x | offset-y | blur-radius | color */
